@@ -1,4 +1,6 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
+app.use(express.urlencoded());
 const cors = require('cors');
 app.use(cors());
 const bodyParser = require('body-parser');
@@ -35,14 +37,9 @@ app.get('/testdb', (req, res) => {
 });
 
 // Landing Page
-app.get('/', (req, res) => res.send(`\
-  <h1><i>Hello Shareleh!</i></h1>\
-  localhost:${expressport}/testdb<br>\
-  test your database connection with postgresql<br><br>\
-  localhost:${expressport}/table/:tname<br>\
-  SELECT * FROM :tname<br><br>\
-  ..<br>more routes in index.js\
-  `));
+app.get('/', (req, res) => res.render('index.ejs', {
+  expressport: expressport
+}));
 
 /*
 God function that handles all postgres queries
@@ -72,26 +69,6 @@ app.get('/table/:tname', (req, res) => {
 // POST query --> Process query (json) and return result (json)
 app.post('/query', (req, res) => {
   poolquery(req.body, res);
-});
-
-/*
-POST entry/insert --> Insert entry
-input json schema = {
-  "tbl":"users",
-  "vals":"null, john"
-}
-*/
-app.post('/entry/insert', (req, res) => {
-  var query = {
-    'text' : 'INSERT INTO ' + req.body['tbl'] + ' VALUES ($1)',
-    'values' : [ req.body['vals']]
-  }
-  poolquery(query, res)
-});
-
-// POST entry/delete --> Delete entry
-app.post('/entry/delete', (req, res) => {
-  res.json(req.body);
 });
 
 // Starts the server
