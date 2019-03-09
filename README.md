@@ -29,4 +29,4 @@ To start the server, run
 ```
 npm start
 ```
-and visit `localhost:3000`
+and visit `localhost:3000`. Make sure that the postgres server is runnng too.
