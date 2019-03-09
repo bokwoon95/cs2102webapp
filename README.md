@@ -6,7 +6,7 @@ npm install
 to install all dependencies
 
 # Configuration
-You will need your postgres username and password. If you do not know your username and password, you can look for your username in psql and change the password for that user to something you know:
+You will need your postgres username and password. If you do not know your username and password, you can look for your username in psql and change the password for that username to something you know:
 ```sql
 CREATE DATABASE shareleh; -- If you haven't already created a shareleh database
 \du -- get your username

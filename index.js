@@ -4,6 +4,7 @@ app.use(cors());
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 require('dotenv').config()
+const expressport = process.env.PORT || 3000;
 
 
 // Postgres
@@ -34,7 +35,14 @@ app.get('/testdb', (req, res) => {
 });
 
 // Landing Page
-app.get('/', (req, res) => res.send('<h1><i>Hello Shareleh!</i></h1>'));
+app.get('/', (req, res) => res.send(`\
+  <h1><i>Hello Shareleh!</i></h1>\
+  localhost:${expressport}/testdb<br>\
+  test your database connection with postgresql<br><br>\
+  localhost:${expressport}/table/:tname<br>\
+  SELECT * FROM :tname<br><br>\
+  ..<br>more routes in index.js\
+  `));
 
 /*
 God function that handles all postgres queries
@@ -87,7 +95,6 @@ app.post('/entry/delete', (req, res) => {
 });
 
 // Starts the server
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log('started website on localhost:' + port);
+app.listen(expressport, () => {
+  console.log('started website on localhost:' + expressport);
 });
