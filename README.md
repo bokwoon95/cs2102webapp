@@ -29,4 +29,4 @@ To start the server, run
 ```
 npm start
 ```
-and visit `0.0.0.0:3000`
+and visit `localhost:3000`
