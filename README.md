@@ -11,7 +11,7 @@ You will need your postgres username and password. If you do not know your usern
 CREATE DATABASE shareleh; -- If you haven't already created a shareleh database
 \du -- get your username
 ALTER USER <username> WITH PASSWORD <password>; -- set password for username (if you have forgotten it)
-\i db/init.sql -- setup initial tables
+\i init.sql -- setup initial tables
 ```
 Make a copy of `.env.sample` and rename it to `.env`. It should look something like this (some of the entries are already filled out because they should be the same for everyone) Open `.env` and fill in DB_USER and DB_PASSWORD.
 ```
