@@ -6,7 +6,7 @@ app.use(cors());
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 require('dotenv').config()
-const expressport = process.env.PORT || 3000;
+const expressport = process.env.PORT || 4000;
 
 
 // Postgres
@@ -66,8 +66,12 @@ app.get('/table/:tname', (req, res) => {
   poolquery(query, res)
 });
 
+// Helper function to remove circular references in object so we can print it out
+JSON.decycle=function(n,e){"use strict";var t=new WeakMap;return function n(o,r){var c,i;return void 0!==e&&(o=e(o)),"object"!=typeof o||null===o||o instanceof Boolean||o instanceof Date||o instanceof Number||o instanceof RegExp||o instanceof String?o:void 0!==(c=t.get(o))?{$ref:c}:(t.set(o,r),Array.isArray(o)?(i=[],o.forEach(function(e,t){i[t]=n(e,r+"["+t+"]")})):(i={},Object.keys(o).forEach(function(e){i[e]=n(o[e],r+"["+JSON.stringify(e)+"]")})),i)}(n,"$")};
+
 // POST query --> Process query (json) and return result (json)
 app.post('/query', (req, res) => {
+  // res.json(JSON.decycle(req)); // For debugging, uncomment this to inspect req
   poolquery(req.body, res);
 });
 
